@@ -8,4 +8,8 @@ class Coins
   def insert_coin (inserted_coin)
     @inserted_coin_total += inserted_coin
   end
+
+  def reset_total
+  	@inserted_coin_total = 0
+  end
 end

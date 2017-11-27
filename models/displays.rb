@@ -3,7 +3,5 @@ class Displays
 
 	def initialize 
 		@current_display = "INSERT COIN"
-	end
-
-	
+	end	
 end

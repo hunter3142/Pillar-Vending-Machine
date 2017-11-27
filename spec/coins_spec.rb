@@ -16,4 +16,13 @@ RSpec.describe Coins do
       expect(coins.inserted_coin_total).to eq(0.25)
 		end
 	end
+
+  describe "#reset_total" do
+    it "resets the inserted coin total to zero" do
+      coins.insert_coin(0.25)
+      coins.reset_total
+
+      expect(coins.inserted_coin_total).to eq(0)
+    end
+  end
 end
