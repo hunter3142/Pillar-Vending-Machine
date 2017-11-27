@@ -10,7 +10,7 @@ class VendingController
 	def initialize 
 		@displays = Displays.new
 		@coins = Coins.new
-    @colas = Inventory.new("Cola", 1.00, 10)
+    @cola = Inventory.new("Cola", 1.00, 10)
     @chips = Inventory.new("Chips", 0.50, 10)
     @candy = Inventory.new("Candy", 0.65, 10)
 	end
@@ -18,7 +18,7 @@ class VendingController
 	def main_menu
     puts "__________Time for some goodies!__________"
     puts ">> Allowed Coins: Quarter, Dime, Nickel <<"
-		puts "           1=> #{@colas.name}(#{@colas.inventory_count}): $#{'%.02f' % @colas.price}"
+		puts "           1=> #{@cola.name}(#{@cola.inventory_count}): $#{'%.02f' % @cola.price}"
 		puts "           2=> #{@chips.name}(#{@chips.inventory_count}): $#{'%.02f' % @chips.price}"
 		puts "           3=> #{@candy.name}(#{@candy.inventory_count}): $#{'%.02f' % @candy.price}"
     if coins.inserted_coin_total == 0
@@ -27,9 +27,10 @@ class VendingController
       print "Money Entered: $#{'%.02f' % coins.inserted_coin_total}\n"
     end
 
-    inserted_coin = gets.chomp.downcase
+    user_input = gets.chomp.downcase
 
-    case inserted_coin
+    case user_input
+# >>>>>>>>>>_____FOR COIN INPUTS_____
       when "quarter"
         system "clear"
         coins.insert_coin(0.25)
@@ -42,63 +43,50 @@ class VendingController
         system "clear"
         coins.insert_coin(0.05)
         main_menu
+# >>>>>>>>>>_____FOR ITEM INPUTS_____
       when "1"
-        if (coins.inserted_coin_total >= @colas.price)
-          system "clear"
-          @colas.remove_item
-          @coins.reset_total
-          puts "              THANK YOU\n"
-          puts "           Dispensed: #{@colas.name}"
-          system "sleep 1"
-          system "clear"
-          main_menu
-        else
-          system "clear"
-          print "              Price: $#{'%.02f' % @colas.price}\n"
-          system "sleep 1"
-          system "clear"
-          main_menu
-        end
+        item_output(@cola)
       when "2"
-        if (coins.inserted_coin_total >= @chips.price)
-          system "clear"
-          @chips.remove_item
-          @coins.reset_total
-          print "              THANK YOU\n"
-          puts "           Dispensed: #{@chips.name}"
-          system "sleep 1"
-          system "clear"
-          main_menu
-        else
-          system "clear"
-          print "              Price: $#{'%.02f' % @chips.price}\n"
-          system "sleep 1"
-          system "clear"
-          main_menu
-        end
+        item_output(@chips)
       when "3"
-        if (coins.inserted_coin_total >= @candy.price)
-          system "clear"
-          @candy.remove_item
-          @coins.reset_total
-          print "              THANK YOU\n"
-          puts "           Dispensed: #{@candy.name}"
-          system "sleep 1"
-          system "clear"
-          main_menu
-        else
-          system "clear"
-          print "              Price: $#{'%.02f' % @candy.price}\n"
-          system "sleep 1"
-          system "clear"
-          main_menu
-        end
+        item_output(@candy)
+# >>>>>>>>>>_____FOR INVALID INPUT_____
       else
         system "clear"
         print "           Invalid Coin/Item Number\n"
         system "sleep 1"
         system "clear"
         main_menu
-    end 
+    end
 	end
+# >>>>>>>>>>_____ITEM OUTPUTS_____
+  def item_output(item)
+    if (coins.inserted_coin_total == item.price)
+      system "clear"
+      item.remove_item
+      @coins.reset_totals
+      puts "              THANK YOU\n"
+      puts "           Dispensed: #{item.name}"
+      system "sleep 1"
+      system "clear"
+      main_menu
+    elsif (coins.inserted_coin_total > item.price)
+      system "clear"
+      item.remove_item
+      @coins.change_due(item)
+      puts "              THANK YOU\n"
+      puts "           Dispensed: #{item.name}"
+      puts "           Change: $#{'%.02f' % coins.total_change}"
+      system "sleep 1.5"
+      system "clear"
+      @coins.reset_totals
+      main_menu
+    else
+      system "clear"
+      print "              Price: $#{'%.02f' % item.price}\n"
+      system "sleep 1"
+      system "clear"
+      main_menu
+    end
+  end
 end
