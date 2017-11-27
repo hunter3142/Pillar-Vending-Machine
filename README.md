@@ -1,17 +1,21 @@
 # Pillar-Vending-Machine
 ## Ruby Check
-Enter:  
+- Enter:  
 `$ ruby -v`  
-Expect:  
+- Expect:  
 `ruby 2.X.X`  
-If you need to install or update ruby please [go here](https://www.ruby-lang.org/en/downloads/)  
+- If you need to install or update ruby please [go here](https://www.ruby-lang.org/en/downloads/)  
 ## Git Clone
-Enter:  
+- Enter:  
 `$ git clone https://github.com/hunter3142/Pillar-Vending-Machine`  
-Then:  
+- Then:  
 `$ cd pillar-vending-machine`  
-Finally:  
+## To Run
+- To run tests:  
+`$ rspec`  
+- To start program:  
 `$ ruby vending_machine.rb`  
+- To quit Press CTRL+C  
 ## How To
 - To insert coins type `quarter` `nickel` or `dime` and press ENTER. (not case-sensitive)
 - To select an item type `1` `2` or `3` and press Enter.
