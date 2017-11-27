@@ -1,14 +1,11 @@
-require_relative '../models/displays'
 require_relative '../models/coins'
 require_relative '../models/inventory'
 
 class VendingController
-	attr_reader :displays
 	attr_reader :coins
   attr_reader :inventory
 
 	def initialize 
-		@displays = Displays.new
 		@coins = Coins.new
     @cola = Inventory.new("Cola", 1.00, 10)
     @chips = Inventory.new("Chips", 0.50, 10)
@@ -22,7 +19,7 @@ class VendingController
 		puts "           2=> #{@chips.name}(#{@chips.inventory_count}): $#{'%.02f' % @chips.price}"
 		puts "           3=> #{@candy.name}(#{@candy.inventory_count}): $#{'%.02f' % @candy.price}"
     if coins.inserted_coin_total == 0
-      puts "#{displays.current_display}\n"
+      puts "INSERT COIN\n"
     elsif coins.inserted_coin_total > 0 
       puts " Money Entered: $#{'%.02f' % coins.inserted_coin_total}"
       puts "(enter RETURN to get your money back)\n"
