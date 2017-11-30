@@ -2,8 +2,7 @@ require_relative '../models/coins'
 require_relative '../models/inventory'
 
 class VendingController
-	attr_reader :coins
-  attr_reader :inventory
+	attr_reader :coins, :cola, :chips, :candy
 
 	def initialize 
 		@coins = Coins.new
@@ -15,9 +14,9 @@ class VendingController
 	def main_menu
     puts "__________Time for some goodies!__________"
     puts ">> Allowed Coins: Quarter, Dime, Nickel <<"
-		puts "           1=> #{@cola.name}(#{@cola.inventory_count}): $#{'%.02f' % @cola.price}"
-		puts "           2=> #{@chips.name}(#{@chips.inventory_count}): $#{'%.02f' % @chips.price}"
-		puts "           3=> #{@candy.name}(#{@candy.inventory_count}): $#{'%.02f' % @candy.price}"
+		puts "           1=> #{cola.name}(#{cola.inventory_count}): $#{'%.02f' % cola.price}"
+		puts "           2=> #{chips.name}(#{chips.inventory_count}): $#{'%.02f' % chips.price}"
+		puts "           3=> #{candy.name}(#{candy.inventory_count}): $#{'%.02f' % candy.price}"
     if coins.inserted_coin_total == 0
       puts "INSERT COIN\n"
     elsif coins.inserted_coin_total > 0 
@@ -43,11 +42,11 @@ class VendingController
         main_menu
 # >>>>>>>>>>_____FOR ITEM INPUTS_____
       when "1"
-        item_output(@cola)
+        item_output(cola)
       when "2"
-        item_output(@chips)
+        item_output(chips)
       when "3"
-        item_output(@candy)
+        item_output(candy)
       when "return"
         system "clear"
         puts "           Returned: $#{coins.inserted_coin_total}"
@@ -75,7 +74,7 @@ class VendingController
     elsif (coins.inserted_coin_total == item.price)
       system "clear"
       item.remove_item
-      @coins.reset_totals
+      coins.reset_totals
       puts "              THANK YOU\n"
       puts "           Dispensed: #{item.name}"
       system "sleep 1"
@@ -84,13 +83,13 @@ class VendingController
     elsif (coins.inserted_coin_total > item.price)
       system "clear"
       item.remove_item
-      @coins.change_due(item)
+      coins.change_due(item)
       puts "              THANK YOU\n"
       puts "           Dispensed: #{item.name}"
       puts "           Change: $#{'%.02f' % coins.total_change}"
       system "sleep 1.5"
       system "clear"
-      @coins.reset_totals
+      coins.reset_totals
       main_menu
     else
       system "clear"

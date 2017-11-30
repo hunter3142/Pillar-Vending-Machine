@@ -14,7 +14,7 @@ class Coins
 
   def reset_totals
   	@inserted_coin_total = 0
-  	@change_due = 0
+  	@total_change = 0
   end
 
   def change_due(item)
