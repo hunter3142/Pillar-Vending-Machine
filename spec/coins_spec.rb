@@ -15,7 +15,7 @@ RSpec.describe Coins do
     end
   end
 
-	describe "#add_coin" do
+	describe "#insert_coin" do
 		it "adds the inserted coin value to the inserted_coin_total" do
 			coins.insert_coin(0.25)
 
