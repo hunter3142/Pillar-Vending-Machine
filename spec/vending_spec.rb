@@ -5,12 +5,45 @@ require_relative '../models/inventory'
 RSpec.describe Vending do
 	let(:vending) { Vending.new }
 	let(:coins) { Coins.new }
-	let(:item) { Inventory.new("Water", 0.25, 1) }
+	let(:item) { Inventory.new(1, "Water", 0.25, 1) }
 
 	describe "attributes" do 
 		it "initializes current_display as INSERT COIN" do
       		expect(vending.current_display).to eq("INSERT COIN")
     	end
+	end
+
+	describe "#main_menu" do
+		it "displays the menu and the current_display" do
+			expect(vending.main_menu).to output("__________Time for some goodies!__________\n 
+										>> Allowed Coins: Quarter, Dime, Nickel <<\n
+										1=> Cola(10): $1.00\n
+										2=> Chips(10): $0.50\n
+										3=> Candy(10): $0.65\n
+										INSERT COIN\n")	
+		end
+	end
+
+	describe "#parse_input" do
+		it "determines whether the input is an integer and runs dispense_product" do
+			expect(vending.parse_input(1)).to receive(:dispense_product).with(item)
+		end
+
+		it "determines whether the integer is invalid" do
+			vending.parse_input(4)
+
+			expect(vending.current_display).to eq("INVALID INPUT")
+		end
+
+		it "determines whether the input is a string and runs insert_coin" do
+			expect(vending.parse_input("quarter")).to receive(:insert_coin).with("quarter")
+		end
+
+		it "determines if the string input is invalid" do
+			vending.parse_input("invalid")
+
+			expect(vending.current_display).to eq("INVALID INPUT")
+		end
 	end
 
   	describe "#coin_total" do

@@ -7,9 +7,17 @@ class Vending
 	def initialize
 		@current_display = "INSERT COIN"
 		@coins = Coins.new
-    	@cola = Inventory.new("Cola", 1.00, 10)
-    	@chips = Inventory.new("Chips", 0.50, 10)
-    	@candy = Inventory.new("Candy", 0.65, 10)
+    	@cola = Inventory.new(1, "Cola", 1.00, 10)
+    	@chips = Inventory.new(2, "Chips", 0.50, 10)
+    	@candy = Inventory.new(3, "Candy", 0.65, 10)
+	end
+
+	def main_menu
+
+	end
+
+	def parse_input(input)
+
 	end
 
 	def coin_total(coinage)

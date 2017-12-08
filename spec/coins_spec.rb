@@ -3,7 +3,7 @@ require_relative '../models/inventory'
 
 RSpec.describe Coins do
 	let(:coins) { Coins.new }
-  	let(:item) { Inventory.new("water", 0.25, 10)}
+  	let(:item) { Inventory.new(1, "water", 0.25, 10)}
 
   	describe "attributes" do
     	it "initializes inserted_coin_total as zero" do

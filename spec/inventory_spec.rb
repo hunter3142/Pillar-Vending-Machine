@@ -1,9 +1,17 @@
 require_relative '../models/inventory'
 
 RSpec.describe Inventory do 
-	let(:item) { Inventory.new("water", 0.25, 10) }
+	let(:item) { Inventory.new(1, "water", 0.25, 10) }
 
   	describe "attributes" do
+  		it "responds to name" do
+      		expect(item).to respond_to(:item_number)
+    	end
+
+    	it "reports its name" do
+      		expect(item.item_number).to eq(1)
+    	end
+
     	it "responds to name" do
       		expect(item).to respond_to(:name)
     	end
